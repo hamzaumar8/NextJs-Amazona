@@ -2,6 +2,7 @@ const data = {
   products: [
     {
       name: "free shirt",
+      slug: "free-shirt",
       category: "shirts",
       image: "/images/shirt1.jpg",
       price: 70,
@@ -13,6 +14,7 @@ const data = {
     },
     {
       name: "fit shirt",
+      slug: "fit-shirt",
       category: "shirts",
       image: "/images/shirt2.jpg",
       price: 70,
@@ -24,6 +26,7 @@ const data = {
     },
     {
       name: "slim shirt",
+      slug: "slim-shirt",
       category: "shirts",
       image: "/images/shirt3.jpg",
       price: 70,
@@ -35,6 +38,7 @@ const data = {
     },
     {
       name: "golf pants",
+      slug: "golf-pants",
       category: "Pants",
       image: "/images/pants1.jpg",
       price: 70,
@@ -46,8 +50,9 @@ const data = {
     },
     {
       name: "Fit Pants",
+      slug: "fit-pants",
       category: "shirts",
-      image: "/images/shirt1.jpg",
+      image: "/images/shirt2.jpg",
       price: 70,
       brand: "Nike",
       rating: 4.5,
@@ -56,9 +61,10 @@ const data = {
       description: "A popular shirt",
     },
     {
-      name: "free shirt",
+      name: "Classic Pants",
+      slug: "classic-pants",
       category: "shirts",
-      image: "/images/shirt1.jpg",
+      image: "/images/shirt3.jpg",
       price: 70,
       brand: "Nike",
       rating: 4.5,
