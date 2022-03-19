@@ -16,12 +16,13 @@ import Product from "../../models/Product";
 import db from "../../utils/db";
 import axios from "axios";
 import { Store } from "../../utils/store";
+import { useRouter } from "next/router";
 
 export default function ProductScreen({ product }) {
+  const router = useRouter();
   const { dispatch } = useContext(Store);
   const classes = useStyles();
   console.log(product);
-  //   const router = useRouter();
   //   const { slug } = router.query;
   //   fetch the product form data's and find the slug of the product
   //   const product = data.products.find((a) => a.slug === slug);
@@ -36,6 +37,7 @@ export default function ProductScreen({ product }) {
       return;
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    router.push("/cart");
   };
   return (
     <div>
