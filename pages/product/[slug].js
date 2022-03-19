@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../../components/Layout";
 import {
   Button,
@@ -14,9 +14,13 @@ import useStyles from "../../utils/styles";
 import Image from "next/image";
 import Product from "../../models/Product";
 import db from "../../utils/db";
+import axios from "axios";
+import { Store } from "../../utils/store";
 
 export default function ProductScreen({ product }) {
+  const { dispatch } = useContext(Store);
   const classes = useStyles();
+  console.log(product);
   //   const router = useRouter();
   //   const { slug } = router.query;
   //   fetch the product form data's and find the slug of the product
@@ -24,6 +28,15 @@ export default function ProductScreen({ product }) {
   if (!product) {
     return <div>Product Not Found</div>;
   }
+
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(`/api/product/${product._id}`);
+    if (data.countInstock <= 0) {
+      window.alert("Sorry. product is out of stock.");
+      return;
+    }
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+  };
   return (
     <div>
       <Layout title={product.name} description={product.description}>
@@ -91,7 +104,12 @@ export default function ProductScreen({ product }) {
                   </Grid>
                 </ListItem>
                 <ListItem>
-                  <Button fullWidth variant="contained" color="primary">
+                  <Button
+                    onClick={addToCartHandler}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  >
                     Add to Cart
                   </Button>
                 </ListItem>
@@ -105,10 +123,11 @@ export default function ProductScreen({ product }) {
 }
 
 export async function getServerSideProps(context) {
-  const params = context;
+  const { params } = context;
   const { slug } = params;
+
   await db.connect();
-  const product = await Product.findOne({ slug }).lean();
+  const product = await Product.findOne({ slug }, "-reviews").lean();
   await db.disconnect();
   return {
     props: {
