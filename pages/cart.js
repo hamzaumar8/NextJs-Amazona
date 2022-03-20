@@ -15,6 +15,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
+import dynamic from "next/dynamic";
 import React, { useContext } from "react";
 import Layout from "../components/Layout";
 import { Store } from "../utils/store";
@@ -103,7 +104,7 @@ function CartScreen() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button varienat="contained" color="primary">
+                  <Button fullWidth variant="contained" color="primary">
                     Check Out
                   </Button>
                 </ListItem>
@@ -116,4 +117,4 @@ function CartScreen() {
   );
 }
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
