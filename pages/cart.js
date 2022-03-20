@@ -1,7 +1,10 @@
 import {
   Button,
+  Card,
   Grid,
   Link,
+  List,
+  ListItem,
   MenuItem,
   Select,
   Table,
@@ -90,7 +93,22 @@ function CartScreen() {
             </TableContainer>
           </Grid>
           <Grid item md={3} xs={12}>
-            cart actions
+            <Card>
+              <List>
+                <ListItem>
+                  <Typography variant="h2">
+                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
+                    items) : ${" "}
+                    {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  </Typography>
+                </ListItem>
+                <ListItem>
+                  <Button varienat="contained" color="primary">
+                    Check Out
+                  </Button>
+                </ListItem>
+              </List>
+            </Card>
           </Grid>
         </Grid>
       )}
